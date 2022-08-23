@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+    {%load static%}
+    <script src="https://kit.fontawesome.com/5744b7aa8b.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{%static 'css/signup.css'%}">
+</head>
+<body>
+    <div class="main">
+        <div style="flex-direction: column;" class="login-icon">
+            <p id="login-toggle"><span id="eyeclose"><ion-icon name="arrow-down"></ion-icon></span>&nbsp; Sign Up</p>
+            {%for message in messages%}
+            <h6 style=" font-weight: 300; font-size: 12px; color: red; margin-top: 5px;">{{message}}</h6>
+            {%endfor%}
+        </div>
+        <div class="box">
+            <form action="" method="post">{%csrf_token%}
+                <div class="user-div">
+                    <input type="First Name" name="fname", required="required" >
+                    <span class="username">First Name</span>
+                    
+                </div>
+                <div class="user-div">
+                    <input type="text" name="username", required="required" >
+                    <span class="username">User Name</span>
+                    
+                </div>
+                <div class="user-div">
+                    <input type="email" name="email", required="required" >
+                    <span class="username">Email</span>
+                    
+                </div>
+                <div class="pass-div">
+                    <input class="passcode" type="password" name="password", required="required" >
+                    <span class="password">Password</span>
+                    <span class="hide" id="eyeopen"><ion-icon name="eye"></ion-icon></i></span>
+                    <span class="show" id="eyeclose"><ion-icon name="eye-off"></ion-icon></i></span>
+                </div>
+                <div class="pass-div" style="margin-top: 15px;">
+                    <input class="passcode" type="password" name="cpassword", required="required">
+                    <span class="password">Confirm Password</span>
+                </div>
+                <div class="login">
+                    <button style="cursor: pointer;" class="login-btn" type="submit">Sign up</button>
+                </div>
+            </form>
+            <div class="newaccount">
+                <p>Already have an account? <a class="signup-btn" href="/login">Log in</a></p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+</body>
+<script src="{%static 'js/jquery-3.6.0.min.js'%}"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+    $(document).ready()
+    {
+        $('#login-toggle').click(function(){
+            $('.box').css("-webkit-transform","translateY(0)");
+            $('#login-toggle').css('opacity', '0')
+        });
+        $('.show').click(function(){
+            $('.hide').css({
+                'opacity': '1',
+                'visiblity': 'visible',
+                'z-index': '2'
+                
+            });
+            $('.show').css({
+                'opacity': '0',
+                'visiblity': 'none',
+                'z-index': '-1'
+            });
+            $('.passcode').attr('type', 'text');
+        });
+        $('.hide').click(function(){
+            $('.hide').css({
+                'opacity': '0',
+                'visiblity': 'none',
+                'z-index': '-1'
+            });
+            $('.show').css({
+                'opacity': '1',
+                'visiblity': 'visible',
+                'z-index': '2'
+            });
+            $('.passcode').attr('type', 'password');
+        })
+    }
+</script>
+</html>

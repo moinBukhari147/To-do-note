@@ -1,0 +1,274 @@
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation</title>
+    <link rel="stylesheet" href="#">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="{%static 'css/index.css'%}">
+</head>
+
+<body>  
+        <div class="clock"><span>22:05 pm</span></div> 
+        <nav class="nav-box">
+            
+            <ul class="nav-items">
+                <li class="menu-item active">
+                    <a href="/" > 
+                        <span class="icon"><ion-icon name="home"></ion-icon></span>
+                        <span class="text">Home</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item addnote-menu-btn">
+                    <a href="#" > 
+                        <span class="icon"><ion-icon name="clipboard"></ion-icon></span>
+                        <span class="text">Notes</span>
+                    </a>
+                </li>
+                <li class="menu-item profile-menu">
+                    <a href="#" > 
+                        <span class="icon"><ion-icon name="person"></ion-icon></span>
+                        <span class="text">Profile</span>
+                    </a>
+                </li>
+                <div class="indicator" id="ind"></div>
+            </ul>
+        </nav>
+        <div class="sidebar">
+            <div class="profile">
+                <a href="#"><img src="{%static 'pics/profile.jpg'%}" alt="profile Image"></a>
+                <a href="#" style="text-decoration: none;"><p>Moin</p></a>
+            </div>
+            <!-- to do notes -->
+            <div class="todolist">
+                <a href="/note/go to gym" style=" text-decoration: none;">
+                    <div class="todo"><p>Go to Gym Title</p></div>
+                    <div class="modify">
+                        <span class="datetime">25-mar-2022 02-20 pm</span>
+                        <a href="/deletenote"><span class="del-btn"><ion-icon name="trash"></ion-icon></span></a>
+                    </div>
+                </a>
+            </div>
+            <div class="gap">
+                
+            </div>
+        </div>
+        <div class="notes-box">
+            <form action="/addnote" method="post">{%csrf_token%}
+                <div class="title-date">
+                    <div class="title">
+                        <input type="text" name="title", required = "required">
+                    <span id="title-id">Title</span>
+                    </div>
+                    <div class="date">
+                        <input type="text" name="date", required  = "required">
+                        <span id="date-id">Date</span>
+                    </div>    
+                </div>
+                <div class="mynotes">
+                    <textarea name="notes" id="" cols="30" rows="10" required = 'required'></textarea>
+                        <span id="mynotes-id">Add Notes</span>
+                </div>
+                <div class="addnote">
+                    <button class="addnote-btn" type="submit">Add Note</button>
+                    <button class="cancle-btn" type="submit">Cancle</button>
+                </div>
+            </form>
+        </div>
+        <div class="profile-div">
+            <form action="/profile" method="post" enctype="multipart/form-data">{%csrf_token%}
+            <ul class="profile-data">
+                
+                    <li class="profile-data-item">
+                        <input type="text" name="fname" required = 'required'>
+                        <label id="name-id" for="fname">First Name</label>
+                        
+                    </li>
+                    <li class="profile-data-item">
+                        <input type="text" name="lname" required = 'required'>
+                        <label id="name-id" for="fname">Last Name</label>
+                        
+                    </li>
+                    <li style="border: 1px solid var(--main); border-radius: 5px;" class="profile-data-item">
+                        <label class="dpname" id="name-id" for="fname">Select Dp</label>
+                        <input class="selectfile" style="cursor: pointer; opacity: 0;"  type="file" name="profilePic" required = 'required'>
+                        
+                        
+                    </li>
+                    <li class="profile-data-item update-cancle">
+                        <button type="submit" class="update-btn">Update</button>
+                        <button class="profile-cancle-btn"> Cancle</button>
+                    </li>
+                </form>
+                    <li class="profile-data-item logout">
+                        <a style="text-decoration: none;" href="/logout"><button class="logout-btn"> Logout</button></a>
+                    </li>
+                
+            </ul>
+        </div>
+</body>
+<script src="{%static 'js/jquery-3.6.0.min.js'%}"></script>
+<script>
+    $(document).ready(function(){
+        var width = window.innerWidth;
+        $(window).resize(function(){
+            width = window.innerWidth;
+            console.log(width);
+            console.log(width)
+        });
+        $('.selectfile').change(function(){
+            dpname = $('.selectfile').val();
+            $('.dpname').text(dpname);
+            $('.dpname').css('font-size', '10px');
+        })
+        
+        
+        
+        list =  document.querySelectorAll('.menu-item');
+        function activeMe ()
+        {
+            list.forEach(element => {
+                $(element).removeClass('active');
+                // element.removeClass('active');
+            });
+            $(this).addClass('active');
+        }
+        list.forEach(element=>{
+            element.addEventListener('click',activeMe);
+        });
+        var toggle = true;
+        $('.addnote-menu-btn').click(function(){
+                if (width > 613)
+                {
+                    if(toggle)
+                    {
+                        $('.notes-box').css("-webkit-transform","translate(-50%,0)");
+                        $('.profile-div').css("-webkit-transform","translateX(210px)");
+                        toggle2 = true;
+                        toggle =false;
+                        $('.sidebar').css({
+                            'filter': 'brightness(20%)',
+                            'transition': '0.6s',
+                            'opacity': '0.7',
+                            'pointer-events': 'none'
+                        });
+                    }
+                    else{
+                        $('.notes-box').css("-webkit-transform","translate(-50%,580px)");
+                        $('.sidebar').css({
+                            'filter': 'brightness(100%)',
+                            'transition': '0.6s',
+                            'opacity': '1',
+                            'pointer-events': 'auto'
+                        });
+                        toggle = true;
+                    }
+                }
+                else
+                {
+                    if (toggle)
+                    {
+                        $('.notes-box').css("-webkit-transform","translate(0,0)");
+                        $('.sidebar').css({
+                            'filter': 'brightness(20%)',
+                            'transition': '0.6s',
+                            'opacity': '0.7',
+                            'pointer-events': 'none'
+                        });
+                        $('.profile-div').css("-webkit-transform","translateX(210px)");
+                        toggle =false;
+                        toggle2 = true;
+                    }
+                    else
+                    {
+                        toggle = true;
+                        $('.notes-box').css("-webkit-transform","translate(0,580px)");
+                        $('.sidebar').css({
+                                'filter': 'brightness(100%)',
+                                'transition': '0.6s',
+                                'opacity': '1',
+                                'pointer-events': 'auto'
+                            });
+                    }
+                    
+                }
+                
+            
+        });
+        $('.cancle-btn').click(function(){
+            toggle = true;
+            $('.sidebar').css({
+                                'filter': 'brightness(100%)',
+                                'transition': '0.6s',
+                                'opacity': '1',
+                                'pointer-events': 'auto'
+                            });
+            if (width > 613)
+                {
+                    $('.notes-box').css("-webkit-transform","translate(-50%,580px)");
+                
+                }
+            else
+            {
+                $('.notes-box').css("-webkit-transform","translate(0,580px)");
+            }
+        })
+        var toggle2 = true;
+        $('.profile-menu').click(function(){
+            if (toggle2)
+            {
+                toggle2 = false;
+                toggle = true;
+                $('.sidebar').css({
+                        'filter': 'brightness(20%)',
+                        'transition': '0.6s',
+                        'opacity': '0.7',
+                        'pointer-events': 'none'
+                    });
+                $('.profile-div').css("-webkit-transform","translateX(0)");
+                if (width < 614)
+                {
+                    
+                    $('.notes-box').css("-webkit-transform","translate(0,580px)");      
+                }
+                else
+                {
+                    $('.notes-box').css("-webkit-transform","translate(-50%,580px)");
+                    
+                }
+            }
+            else
+            {
+                $('.sidebar').css({
+                                'filter': 'brightness(100%)',
+                                'transition': '0.6s',
+                                'opacity': '1',
+                                'pointer-events': 'auto'
+                            });
+                toggle2 = true;
+                        
+                        
+                $('.profile-div').css("-webkit-transform","translateX(210px)");
+            }
+            
+        })
+        $('.profile-cancle-btn').click(function(){
+            toggle2 = true;
+            $('.profile-div').css("-webkit-transform","translateX(210px)");
+            $('.sidebar').css({
+                                'filter': 'brightness(100%)',
+                                'transition': '0.6s',
+                                'opacity': '1',
+                                'pointer-events': 'auto'
+                            });
+        })
+        
+        
+    })
+</script>
+
+</html>

@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+:root
+{
+    --backgound: #1d2b3a;
+    --main: rgba(255,255,255,0.25);
+    --secondary: rgb(9, 214, 163);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--backgound);
+    z-index: -4;
+}
+.main
+{
+    width: 300px;
+    height: 350px;
+    overflow: hidden;
+    z-index: 0;
+}
+.box
+{
+    width: 300px;
+    position: relative;
+    transform: translateY(-150%);
+    transition: 00.6s;
+    display: flex;
+    flex-direction: column;
+}
+.box .pass-div, .user-div
+{
+    width: 100%;
+    height: 40px;
+    position: relative;
+}
+.box .user-div
+{
+    margin-bottom: 30px;
+}
+.box input{
+    width: 100%;
+    height: 40px;
+    outline: none;
+    background: none;
+    font-size: 14px;
+    color: rgb(226, 225, 225);
+    border: 1px solid var(--main);
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 30px;
+}
+.user-div .username, .pass-div .password{
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    
+    color: var(--main);
+    letter-spacing: 1px;
+    transition: 0.4s;
+    pointer-events: none;
+}
+.box input:valid ~ .username,
+.box input:focus ~ .username
+{
+    color: var(--secondary);
+    transform: translate(10px, -7px);
+    font-size: 10px;
+    background-color: var(--backgound);
+    border-right: 1px solid var(--secondary);
+    border-left: 1px solid var(--secondary);
+    padding: 0 10px 0 10px;
+    z-index: 6;
+}
+.box input:valid ~ .password,
+.box input:focus ~ .password
+{
+    color: var(--secondary);
+    transform: translate(10px, -7px);
+    font-size: 10px;
+    font-weight: 300;
+    background-color: var(--secondary);
+    color: var(--backgound);
+    padding: 0 10px 0 10px;
+
+}
+
+.box #eyeopen, .box #eyeclose
+{
+    position: absolute;
+    right: 0 !important;
+    color: var(--main);
+    padding: 10px;
+    top: 0;
+    cursor: pointer;
+}
+.box #eyeopen
+{
+    opacity: 0;
+    visibility: none;
+}
+.box .login
+{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 80px;
+    align-items: center;
+    margin-top: 20px;
+}
+.box .login-btn
+{
+    
+    width: 120px;
+    height: 40px;
+    background-color: var(--secondary);
+    color: var(--backgound);
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: 0 0 4px -1px var(--backgound), 0 0 6px 1px var(--secondary);
+}
+
+.newaccount{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    
+}
+.newaccount p{
+    color: var(--main);
+    font-size: 14px;
+    text-align: center;
+    
+}
+
+.newaccount p .signup-btn{
+    text-decoration: none;
+    font-size: 16px;
+    color: var(--secondary);
+}
+.login-icon
+{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    z-index: 3;
+    background-color: var(--backgound);
+    margin-bottom: 5px;
+}
+.login-icon p{
+    margin-top: 5px;
+    z-index: 3;
+    pointer-events: auto;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    font-size: 18px;
+    background-color: var(--secondary);
+    color: var(--backgound);
+    border-radius: 5px;
+    box-shadow: 0 0 4px -1px var(--backgound), 0 0 6px 1px var(--secondary);
+    transition-delay: 0.3s;
+    transition-duration: 0.5s;
+}
+.login-icon p span{
+    cursor: alias;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5px;
+    z-index: 4;
+    
+}
