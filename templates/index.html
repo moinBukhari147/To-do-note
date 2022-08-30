@@ -12,11 +12,11 @@
 </head>
 
 <body>  
-        <div class="clock"><span>22:05 pm</span></div> 
+        <div class="clock"><span>{{time}}</span></div> 
         <nav class="nav-box">
             
             <ul class="nav-items">
-                <li class="menu-item active">
+                <li class="menu-item menu-item1 active">
                     <a href="/" > 
                         <span class="icon"><ion-icon name="home"></ion-icon></span>
                         <span class="text">Home</span>
@@ -40,19 +40,21 @@
         </nav>
         <div class="sidebar">
             <div class="profile">
-                <a href="#"><img src="{%static 'pics/profile.jpg'%}" alt="profile Image"></a>
-                <a href="#" style="text-decoration: none;"><p>Moin</p></a>
+                <a href="#"><img src="{{profile.profile_img.url}}" alt="profile Image"></a>
+                <a href="#" style="text-decoration: none;"><p>{{profile.username}}</p></a>
             </div>
             <!-- to do notes -->
+            {%for note in notes%}
             <div class="todolist">
-                <a href="/note/go to gym" style=" text-decoration: none;">
-                    <div class="todo"><p>Go to Gym Title</p></div>
+                <a href="/note/{{note.title}}?note_id={{note.id}}" style=" text-decoration: none;">
+                    <div class="todo"><p>{{note.title}}</p></div>
                     <div class="modify">
-                        <span class="datetime">25-mar-2022 02-20 pm</span>
-                        <a href="/deletenote"><span class="del-btn"><ion-icon name="trash"></ion-icon></span></a>
+                        <span class="datetime">{{note.date_time}}</span>
+                        <a href="/deletenote?note_seq={{note.id}}"><span class="del-btn"><ion-icon name="trash"></ion-icon></span></a>
                     </div>
                 </a>
             </div>
+            {%endfor%}
             <div class="gap">
                 
             </div>
@@ -65,12 +67,12 @@
                     <span id="title-id">Title</span>
                     </div>
                     <div class="date">
-                        <input type="text" name="date", required  = "required">
+                        <input style="color:rgb(153, 155, 155)" type="datetime-local" name="date", required  = "required">
                         <span id="date-id">Date</span>
                     </div>    
                 </div>
                 <div class="mynotes">
-                    <textarea name="notes" id="" cols="30" rows="10" required = 'required'></textarea>
+                    <textarea style="font-family: 'Poppins', sans-serif;" name="notes" id="" cols="30" rows="10" required = 'required'></textarea>
                         <span id="mynotes-id">Add Notes</span>
                 </div>
                 <div class="addnote">
@@ -80,36 +82,38 @@
             </form>
         </div>
         <div class="profile-div">
-            <form action="/profile" method="post" enctype="multipart/form-data">{%csrf_token%}
-            <ul class="profile-data">
-                
-                    <li class="profile-data-item">
-                        <input type="text" name="fname" required = 'required'>
-                        <label id="name-id" for="fname">First Name</label>
-                        
-                    </li>
-                    <li class="profile-data-item">
-                        <input type="text" name="lname" required = 'required'>
-                        <label id="name-id" for="fname">Last Name</label>
-                        
-                    </li>
-                    <li style="border: 1px solid var(--main); border-radius: 5px;" class="profile-data-item">
-                        <label class="dpname" id="name-id" for="fname">Select Dp</label>
-                        <input class="selectfile" style="cursor: pointer; opacity: 0;"  type="file" name="profilePic" required = 'required'>
-                        
-                        
-                    </li>
-                    <li class="profile-data-item update-cancle">
-                        <button type="submit" class="update-btn">Update</button>
-                        <button class="profile-cancle-btn"> Cancle</button>
-                    </li>
-                </form>
-                    <li class="profile-data-item logout">
-                        <a style="text-decoration: none;" href="/logout"><button class="logout-btn"> Logout</button></a>
-                    </li>
-                
-            </ul>
+            
+                <ul class="profile-data">
+                    <form style="width: 100%;" action="/profile" method="post" enctype="multipart/form-data">{%csrf_token%}
+                        <li class="profile-data-item">
+                            <input type="text" value="{{profile.fname}}" name="fname" required = 'required'>
+                            <label id="name-id" for="fname">First Name</label>
+                            
+                        </li>
+                        <li class="profile-data-item">
+                            <input type="text" value="{{profile.lname}}" name="lname" required = 'required'>
+                            <label id="name-id" for="fname">Last Name</label>
+                            
+                        </li>
+                        <li style="border: 1px solid var(--main); border-radius: 5px;" class="profile-data-item">
+                            <label class="dpname" id="name-id" for="fname">{{dp_img}}</label>
+                            <input class="selectfile" style="cursor: pointer; opacity: 0;"  type="file" name="profilePic" required = 'required'>
+                            
+                            
+                        </li>
+                        <li class="profile-data-item update-cancle">
+                            <button type="submit" class="update-btn">Update</button>
+                            <button class="profile-cancle-btn"> Cancle</button>
+                        </li>
+                    </form>
+                        <li class="profile-data-item logout">
+                            <a style="text-decoration: none;" href="/logout"><button class="logout-btn"> Logout</button></a>
+                        </li>
+                    
+                </ul>
+            
         </div>
+        
 </body>
 <script src="{%static 'js/jquery-3.6.0.min.js'%}"></script>
 <script>
@@ -117,8 +121,7 @@
         var width = window.innerWidth;
         $(window).resize(function(){
             width = window.innerWidth;
-            console.log(width);
-            console.log(width)
+            
         });
         $('.selectfile').change(function(){
             dpname = $('.selectfile').val();
@@ -133,7 +136,6 @@
         {
             list.forEach(element => {
                 $(element).removeClass('active');
-                // element.removeClass('active');
             });
             $(this).addClass('active');
         }
@@ -151,9 +153,9 @@
                         toggle2 = true;
                         toggle =false;
                         $('.sidebar').css({
-                            'filter': 'brightness(20%)',
+                            'filter': 'brightness(15%)',
                             'transition': '0.6s',
-                            'opacity': '0.7',
+                            'opacity': '0.9',
                             'pointer-events': 'none'
                         });
                     }
@@ -174,9 +176,9 @@
                     {
                         $('.notes-box').css("-webkit-transform","translate(0,0)");
                         $('.sidebar').css({
-                            'filter': 'brightness(20%)',
+                            'filter': 'brightness(15%)',
                             'transition': '0.6s',
-                            'opacity': '0.7',
+                            'opacity': '0.9',
                             'pointer-events': 'none'
                         });
                         $('.profile-div').css("-webkit-transform","translateX(210px)");
@@ -201,6 +203,8 @@
         });
         $('.cancle-btn').click(function(){
             toggle = true;
+            activeMe(document.querySelector('.menu-item1'));
+            $('.menu-item1').addClass('active');
             $('.sidebar').css({
                                 'filter': 'brightness(100%)',
                                 'transition': '0.6s',
@@ -224,9 +228,9 @@
                 toggle2 = false;
                 toggle = true;
                 $('.sidebar').css({
-                        'filter': 'brightness(20%)',
+                        'filter': 'brightness(15%)',
                         'transition': '0.6s',
-                        'opacity': '0.7',
+                        'opacity': '0.9',
                         'pointer-events': 'none'
                     });
                 $('.profile-div').css("-webkit-transform","translateX(0)");
@@ -258,6 +262,8 @@
         })
         $('.profile-cancle-btn').click(function(){
             toggle2 = true;
+            activeMe(document.querySelector('.menu-item1'));
+            $('.menu-item1').addClass('active');
             $('.profile-div').css("-webkit-transform","translateX(210px)");
             $('.sidebar').css({
                                 'filter': 'brightness(100%)',
@@ -265,7 +271,8 @@
                                 'opacity': '1',
                                 'pointer-events': 'auto'
                             });
-        })
+        });
+        
         
         
     })

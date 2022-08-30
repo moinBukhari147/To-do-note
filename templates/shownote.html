@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation</title>
+    <link rel="stylesheet" href="#">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="{%static 'css/shownote.css'%}">
+  
+</head>
+<body>
+    <div class="clock"><span>{{time}}</span></div> 
+        <nav class="nav-box">
+            
+            <ul class="nav-items">
+                <li class="menu-item menu-item1 active">
+                    <a href="/" > 
+                        <span class="icon"><ion-icon name="home"></ion-icon></span>
+                        <span class="text">Home</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item addnote-menu-btn">
+                    <a href="#" > 
+                        <span class="icon"><ion-icon name="clipboard"></ion-icon></span>
+                        <span class="text">Notes</span>
+                    </a>
+                </li>
+                <li class="menu-item profile-menu">
+                    <a href="#" > 
+                        <span class="icon"><ion-icon name="person"></ion-icon></span>
+                        <span class="text">Profile</span>
+                    </a>
+                </li>
+                <div class="indicator" id="ind"></div>
+            </ul>
+        </nav>
+        <div class="sidebar">
+            <div class="profile">
+                <a href="#"><img src="{{profile.profile_img.url}}" alt="profile Image"></a>
+                <a href="#" style="text-decoration: none;"><p>{{profile.username}}</p></a>
+            </div>
+            <!-- to do notes -->
+            {%for note in notes%}
+            <div class="todolist">
+                <a href="/note/{{note.title}}?note_id={{note.id}}" style=" text-decoration: none;">
+                    <div class="todo"><p>{{note.title}}</p></div>
+                    <div class="modify">
+                        <span class="datetime">{{note.date_time}}</span>
+                        <a href="/deletenote?note_seq={{note.id}}"><span class="del-btn"><ion-icon name="trash"></ion-icon></span></a>
+                    </div>
+                </a>
+            </div>
+            {%endfor%}
+            <div class="gap">
+                
+            </div>
+        </div>
+        <div class="show-notes">
+            <div class="title-date">
+                <div class="title">
+                    <input value="{{show_note.title}}" type="text" name="title", required = "required">
+                <span id="title-id">Title</span>
+                </div>
+                <div class="date">
+                    <input value="{{show_note.date_time}}" type="text" name="date", required  = "required">
+                    <span id="date-id">Date</span>
+                </div>    
+            </div>
+            <div class="mynotes">
+                <textarea style="font-family: 'Poppins', sans-serif;"  name="notes" id="" cols="30" rows="10" required = 'required'>{{show_note.note_content}}</textarea>
+                    <span id="mynotes-id">Add Notes</span>
+            </div>
+            <div class="addnote">
+                <a href="/"><button class="cancle-btn">Cancle</button></a>
+            </div>
+    
+    </div>
+    
+</body>
+
+
+</html>

@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.login, name= 'login'),
-    path('logout/', views.logout, name= 'logout'),    
+    path('logout/', views.logout, name= 'logout'),
     path('signup/', views.signup, name='signup'),
     path('addnote', views.addnote, name= 'addnote'),
     path('deletenote', views.deletenote, name='deletenote'),
     path('note/<str:noteName>', views.shownote, name='shownote'),
-    path('profile', views.updateprofile, name='profile')
-]
+    path('profile', views.updateprofile, name='profile'),
+    path('test/', views.test, name='test')
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -19,8 +19,11 @@ class profile(models.Model):
     def __str__(self):
         return self.username
 class note(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=None)
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, default='no title')
     date_time = models.DateTimeField(default=datetime.now())
     note_content = models.CharField(max_length=500, default='no Content')
+    def __str__(self) -> str:
+        return self.title
 

@@ -16,12 +16,14 @@
     
 }
 
+
 body{
     background-color: var(--backgound);
     font-family: 'Poppins', sans-serif;
 }
 .clock
 {
+    z-index: -2;
     position: fixed;
     top: 50%;
     left: calc(150px + 50%);
@@ -261,18 +263,20 @@ ul .indicator::before{
 }
 
 /* Desoinning the notes box to add notes */
+
 .notes-box
         {
             width: 600px;
             position: fixed;
             left: calc(50% + 150px);
             top: 50px;
-            transform: translate(-50%, 580px);
             transition: 00.6s;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            transform: translate(-50%, 580px);
+            
         }
         .notes-box .title-date
         {

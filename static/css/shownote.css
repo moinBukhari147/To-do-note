@@ -1,0 +1,459 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+:root
+{
+    --backgound: #1d2b3a;
+    --backgound2: #0d1013;
+    --background3:rgba(4, 12, 20, 0.699);
+    --main: rgba(255,255,255,0.25);
+    --secondary: rgb(9, 214, 163);
+    --secondary2: rgba(9, 214, 163, 0.61);
+    --textcolor:rgb(209, 208, 208);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+
+body{
+    background-color: var(--backgound2);
+    font-family: 'Poppins', sans-serif;
+}
+.clock
+{
+    z-index: -2;
+    position: fixed;
+    top: 50%;
+    left: calc(150px + 50%);
+    transform: translate(-50%, -50%);
+    /* width: 80px;
+    height: 60px; */
+
+}
+.clock span
+{
+    color: var(--main);
+    font-size: 30px;
+    letter-spacing: 2px;
+
+}
+.nav-box
+{
+    background-color: rgba(4, 12, 20, 0.699);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    border-radius: 50px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 1px 2px var(--backgound), 0 0 10px 1px var(--secondary);
+    z-index: 2;
+}
+
+.nav-items
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.menu-item
+{
+    position: relative;
+    list-style: none;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul .menu-item:hover a .icon
+{
+    color: var(--secondary);
+}
+ul .menu-item.active a .icon
+{
+    color: var(--backgound);
+}
+ul .menu-item:hover a .text{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+}
+.menu-item a{
+    text-decoration: none;
+    position: relative;
+}
+a .icon
+{
+    text-align: center;
+    font-size: 23px;
+    z-index: 3;
+    color: var(--secondary2);
+}
+a .text
+{   position: absolute;
+    left: -20px;
+    top: -70px;
+    font-weight: 700;
+    font-size: 12px;
+    background-color:var(--secondary);
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 0 0 5px 0 rgba(20, 20, 20, 0.801);
+    visibility: none;
+    opacity: 0;
+    transition: 0.3s;
+    transform: translateY(50%);
+    color: var(--backgound);
+}
+a .text::before
+{
+    content: "";
+    background-color: var(--secondary);
+    width: 9px;
+    height: 9px;
+    transform: rotate(45deg) translateX(-50%);
+    z-index: 5;
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+}
+
+ul .indicator{
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+ul .indicator::before{
+    content: '';
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+
+}
+.nav-items .menu-item:nth-child(1).active ~ .indicator{
+    transform: translateX(calc(50px * 0));
+}
+.nav-items .menu-item:nth-child(2).active ~ .indicator{
+    transform: translateX(calc(50px * 1));
+}
+.nav-items .menu-item:nth-child(3).active ~ .indicator{
+    transform: translateX(calc(50px * 2));
+}
+
+
+/* Side BAR */
+.sidebar
+{
+    position: relative;
+    left: 0;
+    width: 300px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #18202b;
+    z-index: 0;
+}
+.sidebar .profile
+{
+    background-color: var(--backgound);
+    width: 90%;
+    height: 60px;
+    margin-left: 10px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    box-shadow: 0 0 1px 2px var(--backgound), 0 0 10px 1px var(--secondary);
+
+}
+.sidebar .profile img
+{
+    background-color: var(--main);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-left: 5px;
+    object-fit: cover;
+}
+.sidebar .profile p
+{
+    font-size: 16px;
+    color: var(--secondary);
+    font-weight: 700;
+
+}
+
+.todolist
+{
+    width: 90%;
+    margin-left: 10px;
+    background-color: var(--backgound3);
+    height: 90px;
+    border-radius: 5px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 3px 1px -2px var(--backgound), 0 4px 6px -4px var(--secondary);
+}
+.gap
+    {
+        height: 100px;
+    }
+.todolist:hover
+{
+    margin-left: 12px;
+    width: 92%;
+}
+.todolist .todo
+{
+    padding: 18px 10px 2px 10px;
+    width: 100%;
+}
+.todolist .todo p{
+    color: var(--textcolor);
+    font-size: 16px;
+    font-weight: 500;
+}
+.todolist .modify
+{
+    width: calc(100% - 10px);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.todolist .modify .datetime
+{
+    font-size: 12px;
+    color: var(--main);
+}
+.todolist .modify .del-btn
+{
+    font-size: 16px;
+    color: var(--secondary);
+}
+.todolist .modify .del-btn:hover
+{
+    font-size: 16px;
+    color: var(--secondary2);
+}
+
+/* Desoinning the showing note */
+.show-notes
+{
+    
+    /* width: 400px; */
+    width: 600px;
+    position: fixed;
+    left: calc(50% + 150px);
+    transform: translateX(-50%);
+    top: 50px;
+    transition: 00.6s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.show-notes .title-date
+    {
+        width: 100%;
+        height: 40px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        
+    }
+    .show-notes .title-date .title, .show-notes .title-date .date
+    {
+        width: calc(50% - 5px);
+        box-sizing: border-box;
+        position: relative;
+    }
+    
+    
+    .show-notes .title-date input{
+        width: 100%;
+        height: 40px;
+        outline: none;
+        background: none;
+        font-size: 16px;
+        color: var(--textcolor);
+        border: 1px solid var(--main);
+        border-radius: 5px;
+        padding-left: 10px;
+        padding-top: 5px;
+    }
+    
+    .show-notes .title-date span{
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px; 
+        color: var(--main);
+        letter-spacing: 1px;
+        transition: 0.4s;
+        pointer-events: none;
+    }
+    .show-notes .mynotes
+    {
+        width: 100%;
+        min-height: 150px;
+        box-sizing: border-box;
+        position: relative;
+    }
+    .show-notes .mynotes textarea
+    {
+        width: 100%;
+        min-height:150px ;
+        outline: none;
+        background: none;
+        font-size: 16px;
+        color: var(--textcolor);
+        border: 1px solid var(--main);
+        border-radius: 5px;
+        padding: 20px 10px;
+    }
+    .show-notes .mynotes span{
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px; 
+        color: var(--main);
+        letter-spacing: 1px;
+        transition: 0.4s;
+        pointer-events: none;
+    }
+    .show-notes .title-date .title input:valid ~ #title-id,
+    .show-notes .title-date .title input:focus ~ #title-id
+    {
+        color: var(--secondary);
+        transform: translate(10px, -7px);
+        font-size: 10px;
+        background-color: var(--backgound2);
+        border-right: 1px solid var(--secondary);
+        border-left: 1px solid var(--secondary);
+        padding: 0 10px 0 10px;
+        z-index: 2;
+    }
+    
+    .show-notes .title-date .date input:valid ~ #date-id,
+    .show-notes .title-date .date input:focus ~ #date-id
+    {
+        color: var(--secondary);
+        transform: translate(10px, -7px);
+        font-size: 10px;
+        font-weight: 300;
+        background-color: var(--secondary);
+        color: var(--backgound);
+        padding: 0 10px 0 10px;
+
+    }
+    .show-notes .mynotes textarea:valid ~ #mynotes-id,
+    .show-notes .mynotes textarea:focus ~ #mynotes-id
+    {
+        color: var(--secondary);
+        transform: translate(10px, -7px);
+        font-size: 10px;
+        background-color: var(--backgound2);
+        border-right: 1px solid var(--secondary);
+        border-left: 1px solid var(--secondary);
+        padding: 0 10px 0 10px;
+        z-index: 2;
+    }
+    .show-notes .addnote
+    {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 80px;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .show-notes .cancle-btn
+    {
+        margin-left: 5px;
+        width: 120px;
+        height: 40px;
+        background-color: var(--secondary);
+        color: var(--backgound);
+        border: none;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 0 4px -1px var(--backgound), 0 0 6px 1px var(--secondary);
+    }
+    .sidebar, .nav-box
+            {
+                filter: brightness(20%);
+                opacity: 0.7;
+                pointer-events: none;
+            }
+
+/* Designing the resposivenss */
+@media(max-width: 908px) and (min-width: 710px)
+{
+    .show-notes
+    {
+        width: 400px;
+    }
+}
+        @media(max-width: 709px) and (min-width: 614px)
+        {
+            .show-notes
+            {
+                width: 300px;
+            }
+        }
+    @media(max-width: 613px)
+    {
+        
+        .clock{
+            left: 100%;
+            transform: translate(-100%,0);
+            top: 5px;
+            width: 50px;
+            z-index: 5;
+        }
+        .clock span {
+            font-size: 12px;
+        }
+        .sidebar
+        {
+            width: 100%;
+        }
+        .show-notes
+            {
+                width: calc(100% - 50px);
+                transform: translateX(0);
+                left: 25px;
+            }
+
+    }
